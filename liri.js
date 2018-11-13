@@ -1,15 +1,15 @@
-//store dependencies as variables.
+//store dependencies as variables. Wasn't sure how to incorporate keys.js file (TBD).
 var fs = require('fs');
 var request = require("request");
 var Spotify = require('node-spotify-api');
 
 
-//Take in command line arguements
+//Take in command line arguments.
 var userInput = process.argv[2];
 var userInput2 = process.argv[3];
 var moviesInput = "";
 var artistInput = "";
-// Execute parameters based on user input commands.
+// Execute parameters based on user input commands.Each command will be defined by a userInput type.
 if (userInput === "concert-this") {
   // Shows listing of artists and concerts. Includes date information for venue. Will use bandsintown API.
   if (userInput2) {
@@ -59,7 +59,7 @@ function logSpotify(queryInput) {
     });
   }
 }
-//I tried to get the bandsintown api to work similarly to OMDB movies API but for some reason, could not get it to work.
+//I tried to get the bandsintown api to work similarly to OMDB movies API but for some reason, could not get it to work. I kept getting undefined. Section to be worked on.
 function logConcerts() {
   var concertsQuery="https://rest.bandsintown.com/artists/" + artistInput + "/events?app_id=codingbootcamp";
   console.log(concertsQuery);
@@ -74,11 +74,11 @@ function logConcerts() {
 //logMovie function 
 function logMovie() {
 
-  // Then run a request to the OMDB API with the movie specified
+  // Then run a request to the OMDB API with the movie specified.
   var queryUrl = "http://www.omdbapi.com/?t=" + moviesInput + "&y=&plot=short&apikey=81c2aaa4";
   console.log(queryUrl);
   request(queryUrl, function (error, response, body) {
-    // If the request is successful (i.e. if the response status code is 200)
+    // If the request is successful (i.e. if the response status code is 200). Similar to exercises.
     if (!error && response.statusCode === 200) {
 
       console.log("Movie title: " + JSON.parse(body).Title);
@@ -91,10 +91,10 @@ function logMovie() {
     }
   });
 }
-
+//Setting readFile
 function readFile() {
 
-  //Use fs to read info from a local file
+  //Reading info. from a local file.
   fs.readFile("random.txt", "utf-8", function (error, data) {
 
     // If the code experiences any errors it will log the error to the console.
@@ -102,10 +102,9 @@ function readFile() {
       return console.log(error);
     }
 
-    // Then split the text into an array by commas (to make it more readable) and trim white spaces
+    // Split text into an array with commas.
     var dataArr = data.trim().split(",");
-
-    // We will then re-display the content as an array for later use.
+    //Console log data in array.
     console.log(dataArr);
 
   });
